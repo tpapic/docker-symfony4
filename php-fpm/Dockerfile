@@ -1,7 +1,5 @@
 FROM alpine:3.10
 
-LABEL maintainer="Vincent Composieux <vincent.composieux@gmail.com>"
-
 RUN apk add --update --no-cache \
     coreutils \
     php7-fpm \

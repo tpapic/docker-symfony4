@@ -8,7 +8,7 @@ services:
             - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: symfony
+            MYSQL_DATABASE: ${REPO_NAME}
             MYSQL_USER: symfony
             MYSQL_PASSWORD: symfony
         networks:
@@ -19,8 +19,8 @@ services:
         ports:
             - "9000:9001"
         volumes:
-            - ../fos-rest:/var/www/fos-rest:cached
-            - ./logs/symfony:/var/www/fos-rest/var/log:cached
+            - ../${REPO_NAME}:/var/www/${REPO_NAME}:cached
+            - ./logs/symfony:/var/www/${REPO_NAME}/var/log:cached
         depends_on: 
             - db
         networks:
@@ -37,7 +37,7 @@ services:
             - php
         volumes:
             - ./logs/nginx:/var/log/nginx:cached
-            - ../fos-rest:/var/www/fos-rest:cached
+            - ../${REPO_NAME}:/var/www/${REPO_NAME}:cached
     elasticsearch:
         container_name: elasticsearch
         image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
@@ -60,7 +60,7 @@ services:
         volumes:
             - ./elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:cached
             - ./elk/logstash/conf.d:/etc/logstash/conf.d:cached
-            - ./logs/symfony:/var/www/fos-rest/var/log:cached
+            - ./logs/symfony:/var/www/${REPO_NAME}/var/log:cached
             - ./logs/nginx:/var/log/nginx:cached
         networks:
             - elk_stack

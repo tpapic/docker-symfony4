@@ -6,16 +6,26 @@ This is a complete stack for running Symfony 4 (latest version: Flex) into Docke
 
 # Installation
 
-First, clone this repository:
+First, make folder
 
 ```bash
+$ mkdir my-project
+```
+
+Next, clone this repository:
+
+```bash
+$ cd my-project
 $ git clone https://github.com/tpapic/docker-symfony4.git
 ```
 
-Next, put your Symfony application into `symfony` folder and do not forget to add `symfony.loc` in your `/etc/hosts` file.
+Next, get symfony project
 
-Make sure you adjust `database_host` in `parameters.yml` to the database container alias "db" (for Symfony < 4)
-Make sure you adjust `DATABASE_URL` in `env` to the database container alias "db" (for Symfony >= 4)
+```bash
+$ cd docker-symfony4
+$ chmod +x get-symfony.sh
+$ ./get-symfony.sh https://github.com/{YOUR_REPO_URL}.git
+```
 
 Then, run:
 
@@ -23,7 +33,18 @@ Then, run:
 $ docker-compose up
 ```
 
+_Note :_ you can execute composer install in php-fpm container
+
+```bash
+$ docker exec php-fpm composer install
+```
+
 You are done, you can visit your Symfony application on the following URL: `http://symfony.loc` (and access Kibana on `http://symfony.loc:81`)
+
+####Folder structure
+* my-project
+    * docker-symfony4
+    * YOUR_SYMFONY_PROJECT
 
 _Note :_ you can rebuild all Docker images by running:
 
